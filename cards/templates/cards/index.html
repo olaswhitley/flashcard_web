@@ -1,0 +1,10 @@
+{% extends "cards/layout.html" %}
+    {% block body %}
+        <h1>Decks:</h1>
+        <ul style="list-style-type:none;">
+            {% for deck in decks %}
+                <li><a href="{% url 'deck' deck.id %}">{{ deck.name }}: {{ deck.description }}</a></li>
+            {% endfor %}
+        </ul>  
+        <a href="{% url 'create_deck' %}">Create Deck</a>
+    {% endblock %}
