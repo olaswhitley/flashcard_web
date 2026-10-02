@@ -6,5 +6,5 @@
                 <li><a href="{% url 'deck' deck.id %}">{{ deck.name }}: {{ deck.description }}</a></li>
             {% endfor %}
         </ul>  
-        <a href="{% url 'create_deck' %}">Create Deck</a>
+        <a href="{% url 'create-deck' %}">Create Deck</a>
     {% endblock %}

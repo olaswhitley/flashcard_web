@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Deck, Flashcard
+from django import forms
+from django.forms import ModelForm
 
 # Create your views here.
 
@@ -18,4 +20,20 @@ def deck(request, id):
     })
 
 def create_deck(request):
-    return render(request, "cards/create_deck.html")
+    return render(request, "cards/create-deck.html", {
+        "deck_form": NewDeckForm()
+    })
+
+# Forms
+class NewDeckForm(ModelForm):
+    class Meta:
+        model = Deck
+        fields = ["name", "description"]
+        widgets = {
+            "name": forms.TextInput(attrs={
+                "placeholder": "Name",
+            }),
+            "description": forms.Textarea(attrs={
+                "placeholder": "Description",
+            }),
+        }
