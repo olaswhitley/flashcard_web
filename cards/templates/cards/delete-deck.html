@@ -1,0 +1,11 @@
+{% extends 'cards/layout.html' %}
+
+{% block body %}
+    <h1>Delete {{ deck.name }}?</h1>
+    <p>Are you sure you want to delete this deck?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'deck' deck.id %}">Cancel</a>
+{% endblock %}

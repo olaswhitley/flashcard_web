@@ -36,6 +36,17 @@ def create_deck(request):
         "deck_form": NewDeckForm()
     })
 
+def delete_deck(request, id):
+    deck = Deck.objects.get(id=id)
+
+    if request.method == "POST":
+        deck.delete()
+        return HttpResponseRedirect(reverse("index"))
+
+    return render(request, "cards/delete-deck.html", {
+        "deck": deck
+    })
+
 # Forms
 class NewDeckForm(ModelForm):
     class Meta:
