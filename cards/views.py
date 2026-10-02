@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Deck, Flashcard
 from django import forms
 from django.forms import ModelForm
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -20,6 +22,16 @@ def deck(request, id):
     })
 
 def create_deck(request):
+    if request.method == "POST":
+        deck_form = NewDeckForm(request.POST)
+        if deck_form.is_valid():
+            deck_form.save()
+            return HttpResponseRedirect(reverse("index"))
+        else:
+            return render(request, "cards/create-deck.html",{
+                "deck_form": deck_form
+            })
+    
     return render(request, "cards/create-deck.html", {
         "deck_form": NewDeckForm()
     })
