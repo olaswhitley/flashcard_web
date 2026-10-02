@@ -1,6 +1,6 @@
 {% extends "cards/layout.html" %}
     {% block body %}
-        <h1>Cards:</h1>
+        <h1>{{ deck.name }}</h1>
         <ul style="list-style-type:none;">
             {% for card in cards %}
                 <li>{{ card.front }}: {{ card.back }}</li>

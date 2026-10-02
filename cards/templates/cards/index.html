@@ -3,7 +3,7 @@
         <h1>Decks:</h1>
         <ul style="list-style-type:none;">
             {% for deck in decks %}
-                <li><a href="{% url 'deck' deck.id %}">{{ deck.name }}: {{ deck.description }}</a></li>
+                <li><a href="{% url 'deck' deck.id %}">{{ deck.name }}</a></li>
             {% endfor %}
         </ul>  
         <a href="{% url 'create-deck' %}">Create Deck</a>

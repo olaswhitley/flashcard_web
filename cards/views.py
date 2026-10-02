@@ -28,12 +28,9 @@ def create_deck(request):
 class NewDeckForm(ModelForm):
     class Meta:
         model = Deck
-        fields = ["name", "description"]
+        fields = ["name"]
         widgets = {
             "name": forms.TextInput(attrs={
                 "placeholder": "Name",
-            }),
-            "description": forms.Textarea(attrs={
-                "placeholder": "Description",
             }),
         }
