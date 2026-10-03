@@ -69,6 +69,25 @@ def add_card(request, id):
         "deck": deck,
     })
 
+def delete_cards(request, id):
+    deck = Deck.objects.get(id=id)
+
+    if request.method == "POST":
+        selected_cards = request.POST.getlist("cards")
+        cards = Flashcard.objects.filter(
+            id__in=selected_cards,
+            deck=deck
+            )
+        cards.delete()
+
+        return HttpResponseRedirect(reverse("deck", args=[id]))
+    
+    return render(request, "cards/deck.html", {
+        "deck": deck,
+        "cards": deck.flashcards.all(),
+        "delete_mode": True
+    })
+
 # Forms
 class NewDeckForm(ModelForm):
     class Meta:

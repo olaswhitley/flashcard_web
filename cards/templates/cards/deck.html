@@ -1,15 +1,44 @@
 {% extends "cards/layout.html" %}
-    {% block body %}
-        <h1>{{ deck.name }}</h1>
+
+{% block body %}
+    <h1>{{ deck.name }}</h1>
+
+    {% if delete_mode %}
+        <form method="post">
+            {% csrf_token %}
+
+            <ul style="list-style-type:none;">
+                {% for card in cards %}
+                    <li>
+                        <label>
+                            <input type="checkbox" name="cards" value="{{ card.id }}">
+                            {{ card.front }}: {{ card.back }}
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <button type="submit">Delete Selected</button>
+        </form>
+
+    {% else %}
         <ul style="list-style-type:none;">
             {% for card in cards %}
                 <li>{{ card.front }}: {{ card.back }}</li>
             {% endfor %}
         </ul>
+
         <a href="{% url 'add_card' deck.id %}">
             Add Card
         </a>
+
+        <a href="{% url 'delete_cards' deck.id %}">
+            Delete Cards
+        </a>
+
         <a href="{% url 'delete_deck' deck.id %}">
             Delete Deck
         </a>
-    {% endblock %}
+    {% endif %}
+
+{% endblock %}

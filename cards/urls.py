@@ -7,4 +7,5 @@ urlpatterns = [
     path("deck/create", views.create_deck, name="create-deck"),
     path("deck/<int:id>/delete/", views.delete_deck, name="delete_deck"),
     path("deck/<int:id>/add/", views.add_card, name="add_card"),
+    path("deck/<int:id>/delete-cards/", views.delete_cards, name="delete_cards"),
 ]
