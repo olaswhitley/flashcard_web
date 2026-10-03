@@ -6,6 +6,9 @@
                 <li>{{ card.front }}: {{ card.back }}</li>
             {% endfor %}
         </ul>
+        <a href="{% url 'add_card' deck.id %}">
+            Add Card
+        </a>
         <a href="{% url 'delete_deck' deck.id %}">
             Delete Deck
         </a>

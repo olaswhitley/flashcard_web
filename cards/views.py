@@ -47,6 +47,28 @@ def delete_deck(request, id):
         "deck": deck
     })
 
+def add_card(request, id):
+    deck = Deck.objects.get(id=id)
+
+    if request.method == "POST":
+        card_form = NewCardForm(request.POST)
+
+        if card_form.is_valid():
+            new_card = card_form.save(commit=False)
+            new_card.deck = deck
+            new_card.save()
+            return HttpResponseRedirect(reverse("deck", args=[id]))
+        else:
+            return render(request, "cards/add-card.html",{
+                "card_form": card_form,
+                "deck": deck,
+            })
+    
+    return render(request, "cards/add-card.html", {
+        "card_form": NewCardForm(),
+        "deck": deck,
+    })
+
 # Forms
 class NewDeckForm(ModelForm):
     class Meta:
@@ -56,4 +78,17 @@ class NewDeckForm(ModelForm):
             "name": forms.TextInput(attrs={
                 "placeholder": "Name",
             }),
+        }
+
+class NewCardForm(ModelForm):
+    class Meta:
+        model = Flashcard
+        fields = ["front", "back"]
+        widgets = {
+            "front": forms.TextInput(attrs={
+                "placeholder": "Front",
+            }),
+            "back": forms.TextInput(attrs={
+                "placeholder": "Back",
+            })
         }

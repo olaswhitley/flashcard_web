@@ -1,0 +1,11 @@
+{% extends 'cards/layout.html' %}
+
+{% block body %}
+    <h2>Add Card</h2>
+    <form action="{% url 'add_card' deck.id %}" method="post">
+        {% csrf_token %}
+        {{ card_form.front }}
+        {{ card_form.back }}
+        <input type="submit">
+    </form>
+{% endblock %}
