@@ -1,5 +1,21 @@
 {% extends "cards/layout.html" %}
 
+    {% block nav %}
+        {% if not delete_mode %}
+            <a class="nav-link" href="{% url 'add_card' deck.id %}">
+                Add Card
+            </a>
+
+            <a class="nav-link" href="{% url 'delete_cards' deck.id %}">
+                Delete Cards
+            </a>
+
+            <a class="nav-link" href="{% url 'delete_deck' deck.id %}">
+                Delete Deck
+            </a>
+        {% endif %}
+    {% endblock %}
+
 {% block body %}
     <h1>{{ deck.name }}</h1>
 
@@ -9,16 +25,25 @@
 
             <ul style="list-style-type:none;">
                 {% for card in cards %}
-                    <li>
-                        <label>
-                            <input type="checkbox" name="cards" value="{{ card.id }}">
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="cards"
+                            value="{{ card.id }}"
+                            id="card-{{ card.id }}"
+                        >
+
+                        <label class="form-check-label" for="card-{{ card.id }}">
                             {{ card.front }}: {{ card.back }}
                         </label>
-                    </li>
+                    </div>
                 {% endfor %}
             </ul>
-
-            <button type="submit">Delete Selected</button>
+            <div class="mt-2">
+                <button class="btn btn-primary mr-2" type="submit">Delete Selected</button>
+                <a class="btn btn-secondary" href="{% url 'deck' deck.id %}">Cancel</a>
+            </div>
         </form>
 
     {% else %}
@@ -27,18 +52,6 @@
                 <li>{{ card.front }}: {{ card.back }}</li>
             {% endfor %}
         </ul>
-
-        <a href="{% url 'add_card' deck.id %}">
-            Add Card
-        </a>
-
-        <a href="{% url 'delete_cards' deck.id %}">
-            Delete Cards
-        </a>
-
-        <a href="{% url 'delete_deck' deck.id %}">
-            Delete Deck
-        </a>
     {% endif %}
 
 {% endblock %}

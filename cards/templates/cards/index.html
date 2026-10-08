@@ -1,10 +1,14 @@
 {% extends "cards/layout.html" %}
+
+    {% block nav %}
+        <a class="nav-link" href="{% url 'create-deck' %}">Create Deck</a>
+    {% endblock %}
+
     {% block body %}
         <h1>Decks:</h1>
-        <ul style="list-style-type:none;">
+        <ul class="list-group list-group-flush">
             {% for deck in decks %}
-                <li><a href="{% url 'deck' deck.id %}">{{ deck.name }}</a></li>
+                <li class="list-group-item"><a href="{% url 'deck' deck.id %}">{{ deck.name }}</a></li>
             {% endfor %}
         </ul>  
-        <a href="{% url 'create-deck' %}">Create Deck</a>
     {% endblock %}

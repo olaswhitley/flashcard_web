@@ -5,6 +5,9 @@
     <form action="{% url 'create-deck' %}" method="post">
         {% csrf_token %}
         {{ deck_form.name }}
-        <input type="submit">
+        <div class="mt-2">
+            <button class="btn btn-primary mr-2" type="submit">Enter</button>
+            <a class="btn btn-secondary" href="{% url 'index' %}">Cancel</a>
+        </div>
     </form>
 {% endblock %}
